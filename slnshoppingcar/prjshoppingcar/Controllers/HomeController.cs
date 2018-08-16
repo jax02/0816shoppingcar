@@ -67,13 +67,15 @@ namespace prjshoppingcar.Controllers
         }
         public ActionResult ShoppingCar()
         {
-            string fUserId = (Session["Member"] as tMember).fUserId;
+            //string fUserId = (Session["Member"] as tMember).fUserId;
+            string fUserId = "tom";
             var orderDetails = db.tOrderDetail.Where(m => m.fUserId == fUserId && m.fIsApproved == "否").ToList();
             return View("ShoppingCar", "_LayoutMember", orderDetails);
         }
         public ActionResult AddCar(string fPId)
         {
-            string fUserId = (Session["Member"] as tMember).fUserId;
+            //string fUserId = (Session["Member"] as tMember).fUserId;
+            string fUserId = "tom";
             var currentCar = db.tOrderDetail.Where(m => m.fPId == fPId && m.fIsApproved == "否" && m.fUserId == fUserId).FirstOrDefault();
             if (currentCar == null)
             {
@@ -104,7 +106,8 @@ namespace prjshoppingcar.Controllers
         [HttpPost]
         public ActionResult ShoppingCar(string fReceiver, string fEmail, string fAddress)
         {
-            string fUserId = (Session["Member"] as tMember).fUserId;
+            //string fUserId = (Session["Member"] as tMember).fUserId;
+            string fUserId = "tom";
             string guid = Guid.NewGuid().ToString();
             tOrder order = new tOrder();
             order.fOrderGuid = guid;
@@ -127,14 +130,15 @@ namespace prjshoppingcar.Controllers
         }
         public ActionResult OrderList()
         {
-            string fUserId = (Session["Member"] as tMember).fUserId;
+            //string fUserId = (Session["Member"] as tMember).fUserId;
+            string fUserId = "tom";
             var orders = db.tOrder.Where(m => m.fUserId == fUserId).OrderByDescending(m => m.fDate).ToList();
-            return View("OrderList","_LayoutMembr",orders);
+            return View("OrderList","_LayoutMember",orders);
         }
         public ActionResult OrderDetail(string fOrderGuid)
         {
             var orderDetails = db.tOrderDetail.Where(m => m.fOrderGuid == fOrderGuid).ToList();
-            return View("OrderDetails","_LayoutMember",orderDetails);
+            return View("OrderDetail","_LayoutMember",orderDetails);
         }
 
     }
